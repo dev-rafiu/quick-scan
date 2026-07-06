@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from 'vitest/config';
 
 const manifestForPlugin = {
   registerType: 'autoUpdate' as const,
@@ -48,5 +48,10 @@ export default defineConfig({
       key: fs.readFileSync('./certs/localhost-key.pem'),
       cert: fs.readFileSync('./certs/localhost.pem'),
     },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setup.ts'],
+    globals: true,
   },
 });
